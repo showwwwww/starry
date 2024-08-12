@@ -1,2 +1,3 @@
 # starry
-Nothing without your point
+This is an self introduction website.
+It used Next + MongoDB + Three.js.
