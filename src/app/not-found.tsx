@@ -2,7 +2,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function Custom404() {
+const Custom404: React.FC = () => {
     const router = useRouter();
 
     React.useEffect(() => {
@@ -11,3 +11,5 @@ export default function Custom404() {
 
     return null;
 }
+
+export default Custom404;

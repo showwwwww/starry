@@ -25,18 +25,6 @@
       "@/*": [
         "./src/*"
       ],
-      "@components/*": [
-        "./src/components/*"
-      ],
-      "@types/*": [
-        "./src/types/*"
-      ],
-      "@elements/*": [
-        "./src/elements/*"
-      ],
-      "@hooks/*": [
-        "./src/hooks/*"
-      ],
     }
   },
   "include": [

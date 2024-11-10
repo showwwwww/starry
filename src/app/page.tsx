@@ -1,12 +1,15 @@
 'use client';
 import React from 'react';
 import * as THREE from 'three';
-import useWatchResize from '@hooks/useWatchResize';
+import useWatchResize from '@/hooks/useWatchResize';
+import { modelContextCreator } from '@/components/ModelContext';
 
 let renderer: THREE.WebGLRenderer | null = null;
 let camera: THREE.PerspectiveCamera | null = null;
 
-export default function Home() {
+const { ModelContext: UniverseContext, pageModel: universeModel } = modelContextCreator('universe');
+
+const Universe: React.FC = () => {
     const ref = React.useRef<HTMLDivElement>(null);
 
     useWatchResize(ref, ({ width, height }) => {
@@ -40,6 +43,10 @@ export default function Home() {
     }, []);
     
     return (
-        <div className='w-screen h-screen absolute' ref={ref}/>
+        <UniverseContext.Provider value={universeModel}>
+            <div className='w-screen h-screen absolute' ref={ref}/>
+        </UniverseContext.Provider>
     );
-}
+};
+
+export default Universe;
