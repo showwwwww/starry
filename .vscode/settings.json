@@ -1,0 +1,17 @@
+{
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "tailwindCSS.includeLanguages": {
+        "plaintext": "css",
+        "javascript": "javascript",
+        "typescript": "typescript",
+        "typescriptreact": "typescriptreact",
+        "javascriptreact": "javascriptreact"
+    },
+    "css.validate": false,
+    "scss.validate": false,
+    "less.validate": false,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+}
