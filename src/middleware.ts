@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getToken } from 'next-auth/jwt';
 import plugins from '@/mw-plugins';
-import { PASSWORD } from '../const-global/index.mjs';
 
 const exclude = (request: Request): boolean => {
   return (
@@ -23,11 +21,6 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  const token = await getToken({ req: request, secret: process.env[PASSWORD] });
-  if (!token && !request.url.includes('/login')) {
-    return NextResponse.redirect(new URL('/login', request.nextUrl.origin));
-  }
-
   return response;
 }
 
@@ -36,5 +29,3 @@ export const config = {
     '/((?!_next/static|_next/image|favicon.ico).*)', // match all routes except static assets
   ],
 };
-
-export { default } from 'next-auth/middleware';

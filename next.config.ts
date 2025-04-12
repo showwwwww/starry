@@ -1,5 +1,4 @@
 import type { NextConfig } from 'next';
-import { USERNAME, PASSWORD } from './const-global/index.mjs';
 
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -59,25 +58,12 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   /* config options here */
-  async redirects() {
-    return [
-      {
-        source: '/',
-        destination: '/login',
-        permanent: true,
-      },
-    ];
-  },
   headers: async () => [
     {
       source: '/(.*)',
       headers: securityHeaders,
     },
   ],
-  serverRuntimeConfig: {
-    [USERNAME]: process.env[USERNAME],
-    [PASSWORD]: process.env[PASSWORD],
-  },
 };
 
 export default nextConfig;

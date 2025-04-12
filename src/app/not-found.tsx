@@ -6,7 +6,7 @@ const Custom404: React.FC = () => {
   const router = useRouter();
 
   React.useEffect(() => {
-    router.back();
+    router.push('/');
   }, [router]);
 
   return null;
