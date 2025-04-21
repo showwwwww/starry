@@ -21,6 +21,11 @@ declare global {
   type Translations = {
     [key in Locale]: TranslationKeys;
   };
+
+  declare module '*.glsl' {
+    const shader: string;
+    export default shader;
+  }
 }
 
 export {};

@@ -6,8 +6,8 @@ import App from './App';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'dui',
-  description: 'Manage your docker containers with ease',
+  title: 'starry',
+  description: 'Our goal is the ocean of stars.',
 };
 
 const getInitial = async (): Promise<{

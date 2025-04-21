@@ -7,20 +7,14 @@ export default class EventEmitter<EventsName extends string, EventData = unknown
     new Map();
   constructor() {}
 
-  addEventListener(
-    eventName: EventsName,
-    callback: (eventer: Eventer<EventsName, EventData>) => void
-  ): void {
+  on(eventName: EventsName, callback: (eventer: Eventer<EventsName, EventData>) => void): void {
     if (!this.callbacks.has(eventName)) {
       this.callbacks.set(eventName, []);
     }
     this.callbacks.get(eventName)?.push(callback);
   }
 
-  removeEventListener(
-    eventName: EventsName,
-    callback: (eventer: Eventer<EventsName, EventData>) => void
-  ): void {
+  off(eventName: EventsName, callback: (eventer: Eventer<EventsName, EventData>) => void): void {
     if (!this.callbacks.has(eventName)) return;
     this.callbacks.set(
       eventName,

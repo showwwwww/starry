@@ -22,7 +22,8 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     height: 0,
   };
   readonly $viewportEle: HTMLDivElement;
-  constructor() {
+  private static instance: Sizes;
+  private constructor() {
     super();
     this.$viewportEle = document.createElement('div');
     this.$viewportEle.style.position = 'absolute';
@@ -36,6 +37,13 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     this.resize();
   }
 
+  static getInstance() {
+    if (!Sizes.instance) {
+      Sizes.instance = new Sizes();
+    }
+    return Sizes.instance;
+  }
+
   resize = () => {
     document.body.appendChild(this.$viewportEle);
     this.viewport.width = this.$viewportEle.offsetWidth;
@@ -43,7 +51,7 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     document.body.removeChild(this.$viewportEle);
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-    this.trigger('resize', {
+    this.emit('resize', {
       eventName: 'resize',
       width: this.width,
       height: this.height,

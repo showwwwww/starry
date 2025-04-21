@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Application from './Models/Application';
+import Application from './models/Application';
 
 export default function Page() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);

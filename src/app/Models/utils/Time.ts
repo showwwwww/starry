@@ -16,9 +16,17 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
   delta = this.MAX_TIME_DELTA;
   ticker: number | null = null;
 
-  constructor() {
+  private static instance: Time;
+  private constructor() {
     super();
     this.tick();
+  }
+
+  static getInstance() {
+    if (!Time.instance) {
+      Time.instance = new Time();
+    }
+    return Time.instance;
   }
 
   tick = () => {
@@ -30,7 +38,7 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
     this.delta = Math.min(current - this.current, this.MAX_TIME_DELTA);
     this.current = current;
 
-    this.trigger('tick', {
+    this.emit('tick', {
       eventName: 'tick',
       STARTED_AT: this.STARTED_AT,
       elapsed: this.elapsed,
