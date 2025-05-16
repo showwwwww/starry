@@ -55,18 +55,11 @@ export default class Loader extends EventEmitter<LoaderEvents, LoaderData> {
   toLoad: number = 0;
   loaded: number = 0;
 
-  private static instance: Loader;
+  static readonly instance: Loader = new Loader();
 
   private constructor() {
     super();
     this.initLoaders();
-  }
-
-  static getInstance() {
-    if (!Loader.instance) {
-      Loader.instance = new Loader();
-    }
-    return Loader.instance;
   }
 
   initLoaders = () => {

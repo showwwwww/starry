@@ -6,6 +6,7 @@ type TimeData = {
   STARTED_AT: number;
   elapsed: number;
   delta: number;
+  current: number;
 };
 
 export default class Time extends EventEmitter<TimeEvents, TimeData> {
@@ -16,17 +17,10 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
   delta = this.MAX_TIME_DELTA;
   ticker: number | null = null;
 
-  private static instance: Time;
+  static readonly instance: Time = new Time();
   private constructor() {
     super();
     this.tick();
-  }
-
-  static getInstance() {
-    if (!Time.instance) {
-      Time.instance = new Time();
-    }
-    return Time.instance;
   }
 
   tick = () => {
@@ -43,6 +37,7 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
       STARTED_AT: this.STARTED_AT,
       elapsed: this.elapsed,
       delta: this.delta,
+      current: this.current,
     });
   };
 

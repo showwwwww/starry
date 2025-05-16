@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 
-import Loader, { ExtensionToType, ExtractExtension, Resource } from './utils/Loader';
-import EventEmitter from './utils/EventEmitter';
+import Loader, { ExtensionToType, ExtractExtension, Resource } from './Loader';
+import EventEmitter from './EventEmitter';
 
 type ResourcesEvents = 'ready' | 'loading';
 
@@ -20,15 +20,15 @@ type ResourcesData = {
 };
 
 export default class Resources extends EventEmitter<ResourcesEvents, ResourcesData> {
-  readonly loader: Loader = Loader.getInstance();
-  private static instance: Resources;
+  readonly loader: Loader = Loader.instance;
+  static readonly instance: Resources = new Resources(resources);
   items: ResourceItems = {
     test: undefined,
   };
 
-  private constructor() {
+  private constructor(_resources: typeof resources) {
     super();
-    this.loader.load(resources);
+    this.loader.load(_resources);
 
     this.loader.on('load', ({ resource, data }) => {
       if (resource.type === 'texture') {
@@ -39,21 +39,14 @@ export default class Resources extends EventEmitter<ResourcesEvents, ResourcesDa
         this.items[resource.name as (typeof resources)[number]['name']] =
           data as unknown as ResourceItems[(typeof resources)[number]['name']];
       }
-      this.trigger('loading', {
+      this.emit('loading', {
         eventName: 'loading',
         progress: this.loader.loaded / this.loader.toLoad,
       });
     });
 
     this.loader.on('complete', () => {
-      this.trigger('ready', { eventName: 'ready', progress: 1 });
+      this.emit('ready', { eventName: 'ready', progress: 1 });
     });
-  }
-
-  static getInstance() {
-    if (!Resources.instance) {
-      Resources.instance = new Resources();
-    }
-    return Resources.instance;
   }
 }

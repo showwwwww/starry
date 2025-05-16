@@ -22,7 +22,7 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     height: 0,
   };
   readonly $viewportEle: HTMLDivElement;
-  private static instance: Sizes;
+  static readonly instance: Sizes = new Sizes();
   private constructor() {
     super();
     this.$viewportEle = document.createElement('div');
@@ -35,13 +35,6 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
 
     window.addEventListener('resize', this.resize);
     this.resize();
-  }
-
-  static getInstance() {
-    if (!Sizes.instance) {
-      Sizes.instance = new Sizes();
-    }
-    return Sizes.instance;
   }
 
   resize = () => {

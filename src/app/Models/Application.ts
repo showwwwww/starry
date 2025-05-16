@@ -5,7 +5,7 @@ import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
 import Sizes from './utils/Sizes';
 import Time from './utils/Time';
-import Resources from './Resources';
+import Resources from './utils/Resources';
 import Camera from './Camera';
 
 import blur from './passes/blur';
@@ -21,9 +21,9 @@ type Passes = {
 
 export default class Application {
   readonly $viewportEle: HTMLCanvasElement;
-  readonly sizes: Sizes = Sizes.getInstance();
-  readonly time: Time = Time.getInstance();
-  readonly resources: Resources = Resources.getInstance();
+  readonly sizes: Sizes = Sizes.instance;
+  readonly time: Time = Time.instance;
+  readonly resources: Resources = Resources.instance;
   readonly scene: THREE.Scene = new THREE.Scene();
   readonly renderer: THREE.WebGLRenderer;
   readonly passes: Passes;
