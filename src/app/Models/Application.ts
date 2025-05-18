@@ -1,12 +1,13 @@
+'use client';
 import * as THREE from 'three';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 
-import Sizes from './utils/Sizes';
-import Time from './utils/Time';
-import Resources from './Resources';
-import Camera from './Camera';
+import sizes from './utils/Sizes';
+import time from './utils/Time';
+import resources from './utils/Resources';
+import camera from './Camera';
 
 import blur from './passes/blur';
 import glow from './passes/glow';
@@ -21,13 +22,13 @@ type Passes = {
 
 export default class Application {
   readonly $viewportEle: HTMLCanvasElement;
-  readonly sizes: Sizes = Sizes.getInstance();
-  readonly time: Time = Time.getInstance();
-  readonly resources: Resources = Resources.getInstance();
+  readonly sizes = sizes;
+  readonly time = time;
+  readonly resources = resources;
   readonly scene: THREE.Scene = new THREE.Scene();
   readonly renderer: THREE.WebGLRenderer;
   readonly passes: Passes;
-  readonly camera: Camera;
+  readonly camera;
 
   constructor({ canvas }: { canvas: HTMLCanvasElement }) {
     this.$viewportEle = canvas;
@@ -54,8 +55,8 @@ export default class Application {
     return renderer;
   };
 
-  createCamera = (): Camera => {
-    return new Camera();
+  createCamera = () => {
+    return camera;
   };
 
   createPasses = (): Passes => {

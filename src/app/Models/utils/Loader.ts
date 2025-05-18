@@ -1,3 +1,4 @@
+'use client';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js';
@@ -50,23 +51,14 @@ type LoaderWedget = {
   action: (resource: Resource) => void;
 };
 
-export default class Loader extends EventEmitter<LoaderEvents, LoaderData> {
+class Loader extends EventEmitter<LoaderEvents, LoaderData> {
   readonly loaders: LoaderWedget[] = [];
   toLoad: number = 0;
   loaded: number = 0;
 
-  private static instance: Loader;
-
-  private constructor() {
+  constructor() {
     super();
     this.initLoaders();
-  }
-
-  static getInstance() {
-    if (!Loader.instance) {
-      Loader.instance = new Loader();
-    }
-    return Loader.instance;
   }
 
   initLoaders = () => {
@@ -155,3 +147,6 @@ export default class Loader extends EventEmitter<LoaderEvents, LoaderData> {
     }
   };
 }
+
+const loader = new Loader();
+export default loader;

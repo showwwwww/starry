@@ -1,3 +1,4 @@
+'use client';
 declare type Eventer<EventName, EventData> = {
   eventName: EventName;
 } & EventData;
@@ -22,7 +23,7 @@ export default class EventEmitter<EventsName extends string, EventData = unknown
     );
   }
 
-  trigger(eventName: EventsName, eventer: Eventer<EventsName, EventData>): void {
+  emit(eventName: EventsName, eventer: Eventer<EventsName, EventData>): void {
     if (!this.callbacks.has(eventName)) return;
     this.callbacks.get(eventName)?.forEach((callback) => callback?.(eventer));
   }

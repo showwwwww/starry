@@ -1,3 +1,4 @@
+'use client';
 import EventEmitter from './utils/EventEmitter';
 
 type Commands =
@@ -23,7 +24,7 @@ type CommandToEvent = {
   keyup: KeyboardEvent;
 };
 
-export default class Commander extends EventEmitter<Commands, CommandToEvent[Commands]> {
+class Commander extends EventEmitter<Commands, CommandToEvent[Commands]> {
   constructor() {
     super();
     window.addEventListener('touchstart', (event) =>
@@ -52,3 +53,6 @@ export default class Commander extends EventEmitter<Commands, CommandToEvent[Com
     );
   }
 }
+
+const commander = new Commander();
+export default commander;

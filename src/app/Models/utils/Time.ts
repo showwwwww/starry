@@ -1,3 +1,4 @@
+'use client';
 import EventEmitter from './EventEmitter';
 
 type TimeEvents = 'tick';
@@ -6,9 +7,10 @@ type TimeData = {
   STARTED_AT: number;
   elapsed: number;
   delta: number;
+  current: number;
 };
 
-export default class Time extends EventEmitter<TimeEvents, TimeData> {
+class Time extends EventEmitter<TimeEvents, TimeData> {
   readonly STARTED_AT: number = Date.now();
   readonly MAX_TIME_DELTA: number = 60;
   current = this.STARTED_AT;
@@ -16,17 +18,9 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
   delta = this.MAX_TIME_DELTA;
   ticker: number | null = null;
 
-  private static instance: Time;
-  private constructor() {
+  constructor() {
     super();
     this.tick();
-  }
-
-  static getInstance() {
-    if (!Time.instance) {
-      Time.instance = new Time();
-    }
-    return Time.instance;
   }
 
   tick = () => {
@@ -43,6 +37,7 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
       STARTED_AT: this.STARTED_AT,
       elapsed: this.elapsed,
       delta: this.delta,
+      current: this.current,
     });
   };
 
@@ -53,3 +48,6 @@ export default class Time extends EventEmitter<TimeEvents, TimeData> {
     }
   };
 }
+
+const time = new Time();
+export default time;

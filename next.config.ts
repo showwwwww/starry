@@ -64,6 +64,14 @@ const nextConfig: NextConfig = {
       headers: securityHeaders,
     },
   ],
+  webpack: (config) => {
+    console.log(config);
+    config.module?.rules.push({
+      test: /\.glsl$/,
+      use: 'webpack-glsl-loader',
+    });
+    return config;
+  },
 };
 
 export default nextConfig;

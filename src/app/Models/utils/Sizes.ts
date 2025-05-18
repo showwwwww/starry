@@ -1,3 +1,4 @@
+'use client';
 import EventEmitter from './EventEmitter';
 
 type SizeEvents = 'resize';
@@ -11,7 +12,7 @@ type SizeData = {
   };
 };
 
-export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
+class Sizes extends EventEmitter<SizeEvents, SizeData> {
   width: number = 0;
   height: number = 0;
   readonly viewport: {
@@ -22,8 +23,7 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     height: 0,
   };
   readonly $viewportEle: HTMLDivElement;
-  private static instance: Sizes;
-  private constructor() {
+  constructor() {
     super();
     this.$viewportEle = document.createElement('div');
     this.$viewportEle.style.position = 'absolute';
@@ -35,13 +35,6 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
 
     window.addEventListener('resize', this.resize);
     this.resize();
-  }
-
-  static getInstance() {
-    if (!Sizes.instance) {
-      Sizes.instance = new Sizes();
-    }
-    return Sizes.instance;
   }
 
   resize = () => {
@@ -61,3 +54,6 @@ export default class Sizes extends EventEmitter<SizeEvents, SizeData> {
     });
   };
 }
+
+const sizes = new Sizes();
+export default sizes;
